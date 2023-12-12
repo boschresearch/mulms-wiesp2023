@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Experiment resources related to the MuLMS corpus (WIESP 2023).
+# Copyright (c) 2023 Robert Bosch GmbH
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+echo -e '\033[1;31mExecute this script from the directory containing this file! \033[0m'
+
+PROJECT_ROOT=$(realpath "../../..")
+
+### Training Settings ###
+
+modelNameOrPath="matscibert" # Currently, there are only configs for matscibert, but adding the others is easy
+additionalDatasets="both" # Must be one of ["sofc", "mspt", "both"]
+
+### Path Settings ###
+
+outputDir="$PROJECT_ROOT/output/relation_extraction/multi_task/mulms/${additionalDatasets}/${modelNameOrPath}"
+
+######
+
+mkdir -p $outputDir
+
+cd $PROJECT_ROOT
+
+for f in {1..5}; do
+
+python source/relation_extraction/train_multitask.py                                                            \
+--config source/relation_extraction/configs/multi_task/mulms/plus_${additionalDatasets}/${modelNameOrPath}.json \
+--tune_fold $f                                                                                                  \
+--save_dir $outputDir
+
+done
+
+python source/relation_extraction/finegrained_eval.py       \
+--input_path_one    $outputDir/${modelNameOrPath}_mtl_mulms_plus_${additionalDatasets}/1  \
+--input_path_two    $outputDir/${modelNameOrPath}_mtl_mulms_plus_${additionalDatasets}/2  \
+--input_path_three  $outputDir/${modelNameOrPath}_mtl_mulms_plus_${additionalDatasets}/3  \
+--input_path_four   $outputDir/${modelNameOrPath}_mtl_mulms_plus_${additionalDatasets}/4  \
+--input_path_five   $outputDir/${modelNameOrPath}_mtl_mulms_plus_${additionalDatasets}/5

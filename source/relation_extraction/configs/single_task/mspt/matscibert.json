@@ -1,0 +1,35 @@
+{
+    "run_name": "matscibert_mspt",
+    "model": {
+        "transformer_class": "BertWrapper",
+        "transformer_model_path": "m3rg-iitd/matscibert",
+        "transformer_model_kwargs": {},
+        "model_kwargs": {
+            "ne_label_embedding_dim": 64,
+            "span_repr_hidden_dim": 1024,
+            "span_repr_out_dim": 768,
+            "biaff_hidden_dim": 768
+        }
+    },
+    "training": {
+        "validation_metric": "MICRO_f1",
+        "trainer": {
+            "min_epochs": 15,
+            "max_epochs": 200,
+            "early_stop": 15,
+            "save_period": 999
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "args": {
+                "lr": 4e-05,
+                "weight_decay": 0.0
+            }
+        },
+        "lr_schedule": "SqrtSchedule(len(train_data_loader))",
+        "data_loaders": {
+            "batch_size": 32
+        },
+        "target_dataset": "mspt"
+    }
+}

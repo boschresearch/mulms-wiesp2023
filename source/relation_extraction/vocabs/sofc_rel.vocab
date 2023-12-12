@@ -1,0 +1,17 @@
+[null]
+anode_material
+cathode_material
+conductivity
+current_density
+degradation_rate
+device
+electrolyte_material
+fuel_used
+interlayer_material
+open_circuit_voltage
+power_density
+resistance
+support_material
+time_of_operation
+voltage
+working_temperature

@@ -1,0 +1,64 @@
+{
+    "run_name": "matscibert_mtl_mulms_plus_both",
+    "model": [
+        {
+            "transformer_class": "BertWrapper",
+            "transformer_model_path": "m3rg-iitd/matscibert",
+            "transformer_model_kwargs": {},
+            "model_kwargs": {
+                "ne_label_embedding_dim": 64,
+                "span_repr_hidden_dim": 1024,
+                "span_repr_out_dim": 768,
+                "biaff_hidden_dim": 768
+            },
+            "dataset": "mulms"
+        },
+        {
+            "transformer_class": "BertWrapper",
+            "transformer_model_path": "m3rg-iitd/matscibert",
+            "transformer_model_kwargs": {},
+            "model_kwargs": {
+                "ne_label_embedding_dim": 64,
+                "span_repr_hidden_dim": 1024,
+                "span_repr_out_dim": 768,
+                "biaff_hidden_dim": 768
+            },
+            "dataset": "sofc"
+        },
+        {
+            "transformer_class": "BertWrapper",
+            "transformer_model_path": "m3rg-iitd/matscibert",
+            "transformer_model_kwargs": {},
+            "model_kwargs": {
+                "ne_label_embedding_dim": 64,
+                "span_repr_hidden_dim": 1024,
+                "span_repr_out_dim": 768,
+                "biaff_hidden_dim": 768
+            },
+            "dataset": "mspt"
+        }
+    ],
+    "training": {
+        "validation_metric": "MICRO_f1",
+        "trainer": {
+            "min_epochs": 15,
+            "max_epochs": 200,
+            "early_stop": 15,
+            "save_period": 999,
+            "grad_acc_steps": 3
+        },
+        "optimizer": {
+            "type": "AdamW",
+            "args": {
+                "lr": 4e-05,
+                "weight_decay": 0.0
+            }
+        },
+        "lr_schedule": "SqrtSchedule(len(joint_train_data_loader))",
+        "data_loaders": {
+            "batch_size": 11
+        },
+        "target_dataset": "mulms",
+        "additional_datasets": "both"
+    }
+}

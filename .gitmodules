@@ -1,0 +1,3 @@
+[submodule "mulms-az-codi2023"]
+	path = mulms-az-codi2023
+	url = https://github.com/boschresearch/mulms-az-codi2023.git
