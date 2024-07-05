@@ -21,6 +21,8 @@ echo -e '\033[1;31mas the SOFC corpus is stored into a pickle file. \033[0m'
 
 PROJECT_ROOT=$(realpath "../../..")
 
+export PYTHONPATH="$PYTHONPATH:${PROJECT_ROOT}:${PROJECT_ROOT}/mulms-az-codi2023"
+
 ### Name of BERT model ###
 
 modelNameOrPath="matscibert" # Must be one of ["bert", "scibert", "matscibert"]

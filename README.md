@@ -61,7 +61,7 @@ Our dataset is divided into several splits, please look them up in the paper for
 
 Please install all dependencies or the environment as listed in [environment.yml](environment.yml) and make sure to have **Python 3.9** installed (we recommend 3.9.11). You might also add the root folder of this project to the `$PYTHONPATH` environment variable. This enables all scripts to automatically find the imports.
 
-**Important:** Also clone the Git submodule in this repo that points to the [MuLMS-AZ Repo](https://github.com/boschresearch/mulms-az-codi2023). The code files there are required to run the experiments in this repo.
+**Important: Also clone the Git submodule in this repo that points to the [MuLMS-AZ Repo](https://github.com/boschresearch/mulms-az-codi2023). The code files there are required to run the experiments in this repo. Do this by appending the Git flag `--recurse-submodule` to `git clone`.**
 
 **NOTE: This code really requires Python 3.9. It does **not** support Python 3.8 and below or 3.10 and above due to type hinting and package dependencies.**
 

@@ -19,6 +19,8 @@ echo -e '\033[1;31mExecute this script from the directory containing this file! 
 
 PROJECT_ROOT=$(realpath "../../..")
 
+export PYTHONPATH="$PYTHONPATH:${PROJECT_ROOT}:${PROJECT_ROOT}/mulms-az-codi2023"
+
 ### Training Settings ###
 
 modelNameOrPath="matscibert" # Currently, there are only configs for matscibert, but adding the others is easy

@@ -12,7 +12,7 @@
         }
     },
     "training": {
-        "validation_metric": "elas_f1",
+        "validation_metric": "MICRO_f1_valid",
         "trainer": {
             "min_epochs": 15,
             "max_epochs": 200,
